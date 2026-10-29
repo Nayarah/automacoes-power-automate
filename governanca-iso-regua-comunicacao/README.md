@@ -82,8 +82,8 @@ No modelo anterior:
 
 - a cobrança era **manual e pontual**, por e-mail e mensagens;
 - não havia **alerta preventivo**: muitas revisões só eram pedidas depois do vencimento;
-- as respostas dos gestores ficavam espalhadas, sem **evidência estruturada** para auditoria;
-- documentos de processos descontinuados continuavam na lista, e processos alterados na prática não eram atualizados no papel.
+- as respostas dos gestores preciavam ser acompanhadas e salvas manualmente na pasta de evidências de aprovação;
+- documentos de processos descontinuados continuavam na lista, e processos alterados na prática corriam o risco de não estarem atualizados no papel.
 
 O objetivo é passar de um modelo **reativo** (cobrança) para um modelo **proativo e automatizado**, alinhado às boas práticas de controle de informação documentada (ISO 9001, item 7.5.3) e de análise crítica.
 
