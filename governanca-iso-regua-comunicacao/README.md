@@ -102,8 +102,7 @@ flowchart LR
     G3 --> LOG[(Log de<br/>Validações)]
     G3 -->|cancelados| OBS[Pasta Obsoleto<br/>+ tarefa no Planner]
     G3 -->|comprovante| T
-    LOG -->|Atualização| G4{GOV-04<br/>Editável}
-    G4 --> PL[Planner da Qualidade<br/>+ aviso no canal]
+    G3 -->|atualização| PL[Planner da Qualidade<br/>+ aviso no canal]
 ```
 
 ### Componentes
@@ -123,8 +122,7 @@ flowchart LR
 | **GOV-00 Sincronização** | Agendado (semanal) | Copia datas, status e revisão da Lista Mestra para a lista de governança e inclui códigos novos. |
 | **GOV-01 Diagnóstico** | Manual / agendado | Localiza o arquivo de cada documento pelo código, grava caminho e link, liga o documento à sua área e aponta desvios de padrão (código fora do padrão, arquivo não encontrado, fora da pasta padrão). |
 | **GOV-02 Régua semanal** | Agendado (semanal) | Para cada área com aprovador, decide se abre campanha, envia o card no Teams, controla os lembretes e escala para o Planner quando não há resposta. |
-| **GOV-03 Respostas do gestor** | Resposta ao card | Valida o card, aplica as decisões na Lista Mestra (via Office Script) e na lista de governança, grava o log, trata cancelamentos, fecha a campanha e envia o comprovante. |
-| **GOV-04 Editável solicitado** | Novo item no Log | Reaproveita a lógica do fluxo de solicitação de editáveis da Fase 1: para cada pedido de atualização feito no card, cria a tarefa no Planner (sem duplicar) e avisa no canal da Qualidade. |
+| **GOV-03 Respostas do gestor** | Resposta ao card | Valida o card, aplica as decisões na Lista Mestra (via Office Script) e na lista de governança, grava o log, trata cancelamentos, cria a tarefa de envio do editável para cada pedido de atualização (sem duplicar) com aviso no canal da Qualidade, fecha a campanha e envia o comprovante. |
 
 ### Regras de negócio
 
@@ -180,6 +178,9 @@ Cada documento continua sendo validado uma vez por ano, mas o gestor recebe dois
 - **Gatilho de resposta a Adaptive Card** só funciona no editor clássico do Power Automate e, depois de alterado, exige desligar e religar o fluxo para registrar a inscrição.
 - **Atualizar o card no chat de outra pessoa** retorna `403 AclCheckFailed`, porque a conta do fluxo não participa da conversa entre o gestor e o bot. O comprovante passou a ser enviado como um novo card.
 - **Respostas simultâneas** (várias partes enviadas em sequência) fazem execuções paralelas lerem dados desatualizados. O gatilho de respostas passou a processar uma resposta por vez (controle de concorrência = 1).
+- **Gatilho "quando um item é criado" do SharePoint.** O pedido de editável começou como um fluxo separado, disparado por cada novo registro de "Atualização" no log. Nos testes, o gatilho só processava os itens quando o fluxo era salvo ou religado. A lógica foi incorporada ao fluxo de respostas: a tarefa nasce no mesmo instante da decisão do gestor, sem depender de gatilho intermediário.
+- **Valores de colunas de escolha.** O fluxo compara textos exatos: uma opção cadastrada como "Normativo" não é igual a "Normativos". As opções da lista foram alinhadas aos valores usados pelo fluxo.
+- **Data e hora para auditoria.** A coluna do log passou a guardar data **e hora** (`utcNow()`), e a mensagem ao canal converte o horário para Brasília com `convertFromUtc`.
 
 ## Próximos passos
 
