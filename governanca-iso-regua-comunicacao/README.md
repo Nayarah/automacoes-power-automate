@@ -36,19 +36,20 @@ Três formulários no **Microsoft Forms**, publicados como botões na página de
 **Árvore de decisão do tipo de documento.** Em vez de pedir que o usuário escolha o tipo, o formulário faz perguntas sobre a rotina e chega ao modelo certo:
 
 ```mermaid
+%%{init: {"flowchart": {"htmlLabels": false, "padding": 20}}}%%
 flowchart TD
-    A[O que o documento vai descrever?] --> B[Regras gerais para<br/>toda a empresa]
-    A --> C[Rotina ou fluxo de<br/>uma área]
-    A --> D[Tabelas, mapeamentos ou<br/>listas de controle]
-    B --> E{Proíbe, permite ou<br/>regulamenta algo oficialmente?}
-    E -->|Sim| POL[Política]
+    A["O que o documento<br/>vai descrever?"] --> B["Regras gerais<br/>para toda<br/>a empresa"]
+    A --> C["Rotina ou<br/>fluxo de<br/>uma área"]
+    A --> D["Tabelas,<br/>mapeamentos ou<br/>listas de controle"]
+    B --> E{"Proíbe, permite<br/>ou regulamenta<br/>algo oficialmente?"}
+    E -->|Sim| POL["Política"]
     E -->|Não| C
-    C --> F{Envolve várias pessoas<br/>ou áreas?}
-    F -->|Não, é a tarefa<br/>de uma pessoa| IDT[Instrução de Trabalho]
-    F -->|Sim| G{Fluxo de processo ou<br/>guia de consulta?}
-    G -->|Fluxo| PRO[Procedimento]
-    G -->|Guia de consulta| MAN[Manual]
-    D --> DAD[Dados]
+    C --> F{"Envolve<br/>várias pessoas<br/>ou áreas?"}
+    F -->|"Não: tarefa<br/>de uma pessoa"| IDT["Instrução<br/>de Trabalho"]
+    F -->|Sim| G{"Fluxo de<br/>processo ou guia<br/>de consulta?"}
+    G -->|Fluxo| PRO["Procedimento"]
+    G -->|Guia| MAN["Manual"]
+    D --> DAD["Dados"]
 ```
 
 Antes de liberar o modelo, o formulário orienta o usuário a verificar se já existe um documento daquele tipo para a área, evitando duplicidades.
@@ -89,6 +90,7 @@ O objetivo é passar de um modelo **reativo** (cobrança) para um modelo **proat
 ### Visão geral
 
 ```mermaid
+%%{init: {"flowchart": {"htmlLabels": false, "padding": 20}}}%%
 flowchart LR
     LM[(Lista Mestra<br/>Excel oficial)] -->|GOV-00<br/>sincroniza| GD[(Governança de<br/>Documentos<br/>SharePoint List)]
     SDD[(Biblioteca de<br/>documentos)] -->|GOV-01<br/>diagnóstico| GD
